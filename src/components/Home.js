@@ -43,7 +43,7 @@ export class Home extends Component {
         let html_data = this.getCardHTML(
             data["gps_coordinates"],
             Math.floor(data["validity"]),
-            data["img_link"])
+            data["img_link"], "Low")
         
         document.getElementById("severity1_cards").innerHTML += html_data
     }
@@ -52,7 +52,7 @@ export class Home extends Component {
         let html_data = this.getCardHTML(
             data["gps_coordinates"], 
             Math.floor(data["validity"]),
-            data["img_link"])
+            data["img_link"], "Medium")
 
         document.getElementById("severity2_cards").innerHTML += html_data
     }
@@ -61,12 +61,12 @@ export class Home extends Component {
         let html_data = this.getCardHTML(
             data["gps_coordinates"],
             Math.floor(data["validity"]),
-            data["img_link"])
+            data["img_link"], "High")
         
             document.getElementById("severity3_cards").innerHTML += html_data
     }
 
-    getCardHTML = (gps_coordinates, validity, image_link) => {
+    getCardHTML = (gps_coordinates, validity, image_link, priority) => {
 
         let card_html = `
             <div class="card" style="width: 100%">
@@ -79,7 +79,7 @@ export class Home extends Component {
 
                 <div class="card-body" style="text-align: left;">
                     <h5 class="card-title">Validity: ${validity}%</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">Low Priority</h6>
+                    <h6 class="card-subtitle mb-2 text-muted">${} Priority</h6>
                     <br>
                     <a target="_blank" href="${image_link}" class="card-link">Image Link</a>
                 </div>
