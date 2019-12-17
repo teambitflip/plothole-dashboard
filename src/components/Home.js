@@ -79,7 +79,7 @@ export class Home extends Component {
 
                 <div class="card-body" style="text-align: left;">
                     <h5 class="card-title">Validity: ${validity}%</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">${} Priority</h6>
+                    <h6 class="card-subtitle mb-2 text-muted">${priority} Priority</h6>
                     <br>
                     <a target="_blank" href="${image_link}" class="card-link">Image Link</a>
                 </div>
