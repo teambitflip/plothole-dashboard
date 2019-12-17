@@ -4,7 +4,6 @@ import firebaseapp from '../firebase'
 
 import logo from '../logo.png'
 import './home.css'
-import { element } from 'prop-types'
 
 export class Home extends Component {
 
