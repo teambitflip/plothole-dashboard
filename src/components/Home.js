@@ -32,9 +32,8 @@ export class Home extends Component {
             } else if (severity === 3) {
                 this.addToSeverity3Table(result)
             } else {
-                // -1 part
                 console.log("-1 severity")
-                //this.addToSeverity1Table(result)
+                this.addToSeverity1Table(result)
             }
         })
     }
