@@ -52,7 +52,7 @@ export class Home extends Component {
         let html_data = this.getCardHTML(
             data["gps_coordinates"], 
             Math.floor(data["validity"]),
-            data["img_link"], "Medium")
+            data["img_link"], "Medium to High")
 
         document.getElementById("severity2_cards").innerHTML += html_data
     }
@@ -61,7 +61,7 @@ export class Home extends Component {
         let html_data = this.getCardHTML(
             data["gps_coordinates"],
             Math.floor(data["validity"]),
-            data["img_link"], "High")
+            data["img_link"], "Extremely High")
         
             document.getElementById("severity3_cards").innerHTML += html_data
     }
