@@ -26,7 +26,7 @@ export class Home extends Component {
             let severity = result["severity"]
 
             if(severity === 1) {
-                this.addToSeverity1Table(result)
+                this.addToSeverity2Table(result)
             } else if (severity === 2) {
                 this.addToSeverity2Table(result)
             } else if (severity === 3) {
