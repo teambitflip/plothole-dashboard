@@ -16,13 +16,14 @@ export class Home extends Component {
     }
 
     fillTable = (data) => {
-
+        // Clear inner html
         document.getElementById("severity1_cards").innerHTML = ""
         document.getElementById("severity2_cards").innerHTML = ""
         document.getElementById("severity3_cards").innerHTML = ""
 
-        Object.keys(data).forEach((element) => {
-            let result = data[element]
+        // fill column according to severity
+        Object.keys(data).forEach((uid) => {
+            let result = data[uid]
             let severity = result["severity"]
 
             if(severity === 1) {
@@ -32,7 +33,7 @@ export class Home extends Component {
             } else if (severity === 3) {
                 this.addToSeverity3Table(result)
             } else {
-                console.log("-1 severity")
+                //console.log("-1 severity")
                 this.addToSeverity1Table(result)
             }
         })
@@ -65,8 +66,8 @@ export class Home extends Component {
             document.getElementById("severity3_cards").innerHTML += html_data
     }
 
+    // Card Template HTML
     getCardHTML = (gps_coordinates, validity, image_link, priority) => {
-
         let card_html = `
             <div class="card" style="width: 100%">
                 <iframe
