@@ -1,0 +1,25 @@
+.img-responsive {
+  height: auto;
+  width: auto;
+  max-height: 60px;
+  max-width: 60px;
+}
+
+.card-body-style {
+  text-align: left;
+}
+.img-card {
+  height: auto;
+  width: auto;
+  max-height: 200px;
+  max-width: 200px;
+  padding: 1rem;
+}
+.card-style {
+  width: 100%;
+}
+
+.h2-style {
+  color: black;
+  font: Rubik, sans-serif;
+}
