@@ -1,15 +1,8 @@
-import React, { Component, useState } from "react";
+import React, { useState } from "react";
 import logo from "./logo.png";
 import "./App.css";
 import Map from "./components/Map";
-import {
-  Collapse,
-  Navbar,
-  NavbarToggler,
-  Nav,
-  NavItem,
-  NavLink
-} from "reactstrap";
+import { Collapse, Navbar, NavbarToggler, Nav, NavItem } from "reactstrap";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import Severity1Map from "./components/Severity1Map";
 import Severity2Map from "./components/Severity2Map";
@@ -30,7 +23,7 @@ const openSeverity3Map = props => {
   console.log("severity3map", props.location.severity3MapProps);
   return <Severity3Map />;
 };
-const NavBar = props => {
+const NavBar = () => {
   const [collapsed, setCollapsed] = useState(true);
   const toggleNavbar = () => setCollapsed(!collapsed);
   return (
@@ -38,6 +31,7 @@ const NavBar = props => {
       <div>
         <Navbar color="p-3 bg-dark text-white" dark>
           <img src={logo} className="img-responsive"></img>
+
           <Link
             className="mr-auto"
             to={{ pathname: "/", mapProps: { name: "Main map was opened" } }}
@@ -63,7 +57,7 @@ const NavBar = props => {
                   Severity 1
                 </Link>
               </NavItem>
-              <NavItem style={{ paddingTop: "0.1rem" }}>
+              <NavItem style={{ paddingTop: "0.5rem" }}>
                 <Link
                   style={{ color: "white" }}
                   to={{
@@ -74,7 +68,7 @@ const NavBar = props => {
                   Severity 2
                 </Link>
               </NavItem>
-              <NavItem style={{ paddingTop: "0.1rem" }}>
+              <NavItem style={{ paddingTop: "0.5rem" }}>
                 <Link
                   style={{ color: "white" }}
                   to={{
