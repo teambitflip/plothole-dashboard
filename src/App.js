@@ -1,28 +1,37 @@
 import React, { useState } from "react";
-import logo from "./logo.png";
-import "./App.css";
 import Map from "./components/Map";
 import { Collapse, Navbar, NavbarToggler, Nav, NavItem } from "reactstrap";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+
+import logo from "./logo.png";
+import "./App.css";
+
 import Severity1Map from "./components/Severity1Map";
 import Severity2Map from "./components/Severity2Map";
 import Severity3Map from "./components/Severity3Map";
+
+
 const openMap = props => {
   console.log("map", props.location.mapProps);
   return <Map />;
 };
+
 const openSeverity1Map = props => {
   console.log("severity1map", props.location.severity1MapProps);
   return <Severity1Map />;
 };
+
 const openSeverity2Map = props => {
   console.log("severity2map", props.location.severity2MapProps);
   return <Severity2Map />;
 };
+
 const openSeverity3Map = props => {
   console.log("severity3map", props.location.severity3MapProps);
   return <Severity3Map />;
 };
+
+
 const NavBar = () => {
   const [collapsed, setCollapsed] = useState(true);
   const toggleNavbar = () => setCollapsed(!collapsed);
@@ -30,7 +39,7 @@ const NavBar = () => {
     <Router>
       <div>
         <Navbar color="p-3 bg-dark text-white" dark>
-          <img src={logo} className="img-responsive"></img>
+          <img alt="logo" src={logo} className="img-responsive"></img>
 
           <Link
             className="mr-auto"

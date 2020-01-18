@@ -21,14 +21,19 @@ import {
   Marker,
   InfoWindow
 } from "react-google-maps";
+
+
 const API_KEY = "AIzaSyArr8VXow5emvehdROfhZ7YcItqSBBNYbQ";
+
+
 const ListMenu = props => {
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
   const [modal, setModal] = useState(false);
   const toggleModal = () => setModal(!modal);
+  
   return (
-    <div>
+    <div style={{paddingLeft: '20%', paddingRight: '20%'}}>
       <Button
         color="danger"
         onClick={toggle}
@@ -44,6 +49,7 @@ const ListMenu = props => {
               <Row>
                 <Col>
                   <img
+                    alt="pothole_image"
                     src={props.value.img_link}
                     style={{
                       width: "150px",
@@ -67,6 +73,7 @@ const ListMenu = props => {
                     </ModalHeader>
                     <ModalBody>
                       <img
+                        alt="pothole_image"
                         src={props.value.img_link}
                         style={{
                           width: "100%",
@@ -79,6 +86,7 @@ const ListMenu = props => {
                 </Col>
                 <Col>
                   <iframe
+                    title="Small Map"
                     width="100%"
                     frameborder="0"
                     style={{ border: "0" }}
@@ -94,6 +102,8 @@ const ListMenu = props => {
     </div>
   );
 };
+
+
 const MapWithAMarker = compose(
   withScriptjs,
   withGoogleMap
@@ -129,7 +139,9 @@ const MapWithAMarker = compose(
   );
 });
 
+
 export default class Severity1Map extends Component {
+
   constructor(props) {
     super(props);
     this.state = {
@@ -137,6 +149,8 @@ export default class Severity1Map extends Component {
       selectedMarker: false
     };
   }
+
+
   componentDidMount() {
     let rootRef = firebase.database().ref("/results");
     rootRef.on("value", snap => {
@@ -147,6 +161,7 @@ export default class Severity1Map extends Component {
       let assignLongitude = [];
       let assignAction = [];
       let a = 1;
+
       for (let item in places) {
         latLng = places[item].gps_coordinates.split(",");
         assignLatitude = latLng[0];
@@ -173,16 +188,21 @@ export default class Severity1Map extends Component {
           a = a + 1;
         }
       }
+      
       this.setState({
         places: potholes
       });
     });
   }
+
+
   handleMouseOver = marker => {
     this.setState({
       selectedMarker: marker
     });
   };
+
+
 
   render() {
     return (
@@ -196,6 +216,7 @@ export default class Severity1Map extends Component {
           containerElement={<div style={{ height: `300px` }} />}
           mapElement={<div style={{ height: `100%` }} />}
         />
+
         <div>
           {this.state.places.map(data => (
             <ListMenu key={data.id} value={data} />

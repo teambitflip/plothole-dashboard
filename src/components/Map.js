@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import firebase from "../firebase";
 import { compose } from "recompose";
-import "./Map.css";
 import {
   withScriptjs,
   withGoogleMap,
@@ -10,17 +9,16 @@ import {
   InfoWindow
 } from "react-google-maps";
 
-const MapWithAMarker = compose(
-  withScriptjs,
-  withGoogleMap
-)(props => {
+import "./Map.css";
+
+const MapWithAMarker = compose(withScriptjs, withGoogleMap)(props => {
   return (
     <GoogleMap
       defaultZoom={18}
-      defaultCenter={{ lat: 20.3546207, lng: 85.8206245 }}
-    >
+      defaultCenter={{ lat: 20.3546207, lng: 85.8206245 }}>
       {props.markers.map(marker => {
         const onClick = props.onClick.bind(this, marker);
+        
         return (
           <Marker
             key={marker.id}
@@ -28,13 +26,13 @@ const MapWithAMarker = compose(
             position={{
               lat: parseFloat(marker.latitude),
               lng: parseFloat(marker.longitude)
-            }}
-          >
+            }}>
             {props.selectedMarker === marker && (
               <InfoWindow>
                 <div className="infoWindowStyle">
                   <div className="card" style={{ maxWidth: "100%" }}>
                     <img
+                      alt="pothole_image"
                       src={marker.img_link}
                       style={{
                         width: "80%",
@@ -73,20 +71,26 @@ export default class Map extends Component {
       selectedMarker: false
     };
   }
+
+
   componentDidMount() {
     let rootRef = firebase.database().ref("/results");
+    
     rootRef.on("value", snap => {
       let places = snap.val();
+    
       let potholes = [];
       let latLng = [];
       let assignLatitude = [];
       let assignLongitude = [];
       let assignPriority = [];
       let assignAction = [];
+    
       for (let item in places) {
         latLng = places[item].gps_coordinates.split(",");
         assignLatitude = latLng[0];
         assignLongitude = latLng[1];
+    
         if (places[item].severity === 1) {
           assignPriority = "Low";
         } else if (places[item].severity === 2) {
@@ -101,6 +105,7 @@ export default class Map extends Component {
         } else {
           assignAction = "No";
         }
+    
         if (places[item].issue_fixed === "false") {
           potholes.push({
             id: item,
@@ -114,14 +119,19 @@ export default class Map extends Component {
           });
         }
       }
+    
       this.setState({
         places: potholes
       });
     });
   }
-  handleClick = (marker, event) => {
+  
+  
+  handleClick = (marker) => {
     this.setState({ selectedMarker: marker });
   };
+
+
   render() {
     return (
       <MapWithAMarker
