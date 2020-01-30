@@ -106,7 +106,7 @@ export default class Map extends Component {
           assignAction = "No";
         }
     
-        if (places[item].issue_fixed === "false") {
+        if (places[item].issue_fixed === "false" && places[item].validity > 0) {
           potholes.push({
             id: item,
             latitude: assignLatitude,
