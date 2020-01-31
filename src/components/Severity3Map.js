@@ -21,19 +21,14 @@ import {
   Marker,
   InfoWindow
 } from "react-google-maps";
-
-
 const API_KEY = "AIzaSyArr8VXow5emvehdROfhZ7YcItqSBBNYbQ";
-
-
 const ListMenu = props => {
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
   const [modal, setModal] = useState(false);
   const toggleModal = () => setModal(!modal);
-  
   return (
-    <div style={{paddingLeft: '20%', paddingRight: '20%'}}>
+    <div style={{ paddingLeft: "20%", paddingRight: "20%" }}>
       <Button
         color="danger"
         onClick={toggle}
@@ -49,18 +44,18 @@ const ListMenu = props => {
               <Row>
                 <Col>
                   <img
-                    alt="pothole_image"
                     src={props.value.img_link}
                     style={{
                       width: "150px",
                       height: "150px"
                     }}
+                    alt="High Severity Pothole"
                   ></img>
                 </Col>
                 <Col>
                   <h6>Latitude : {props.value.latitude}</h6>
                   <h6>Longitude : {props.value.longitude}</h6>
-                  <h6>Priority : {props.value.priority}</h6>
+                  <h6>Severity : {props.value.severity}</h6>
                   <h6>Action Taken : {props.value.action_taken}</h6>
                   <br></br>
                   <Button outline color="danger" onClick={toggleModal}>
@@ -73,22 +68,22 @@ const ListMenu = props => {
                     </ModalHeader>
                     <ModalBody>
                       <img
-                        alt="pothole_image"
                         src={props.value.img_link}
                         style={{
                           width: "100%",
                           height: "100%",
                           padding: "1rem"
                         }}
+                        alt="High Severity Pothole"
                       ></img>
                     </ModalBody>
                   </Modal>
                 </Col>
                 <Col>
                   <iframe
-                    title="Small Map"
+                    title={props.value.id}
                     width="100%"
-                    frameborder="0"
+                    frameBorder="0"
                     style={{ border: "0" }}
                     src={`https://www.google.com/maps/embed/v1/place?q=${props.value.latitude},${props.value.longitude}&key=${API_KEY}&zoom=18`}
                     allowfullscreen
@@ -102,15 +97,13 @@ const ListMenu = props => {
     </div>
   );
 };
-
-
 const MapWithAMarker = compose(
   withScriptjs,
   withGoogleMap
 )(props => {
   return (
     <GoogleMap
-      defaultZoom={18}
+      defaultZoom={14}
       defaultCenter={{ lat: 20.3546207, lng: 85.8206245 }}
     >
       {props.markers.map(marker => {
@@ -139,9 +132,7 @@ const MapWithAMarker = compose(
   );
 });
 
-
 export default class Severity1Map extends Component {
-
   constructor(props) {
     super(props);
     this.state = {
@@ -149,8 +140,6 @@ export default class Severity1Map extends Component {
       selectedMarker: false
     };
   }
-
-
   componentDidMount() {
     let rootRef = firebase.database().ref("/results");
     rootRef.on("value", snap => {
@@ -161,7 +150,6 @@ export default class Severity1Map extends Component {
       let assignLongitude = [];
       let assignAction = [];
       let a = 1;
-
       for (let item in places) {
         latLng = places[item].gps_coordinates.split(",");
         assignLatitude = latLng[0];
@@ -179,30 +167,24 @@ export default class Severity1Map extends Component {
             id: a,
             latitude: parseFloat(assignLatitude),
             longitude: parseFloat(assignLongitude),
-            severity: places[item].severity,
             validity: Math.floor(places[item].validity),
             img_link: places[item].img_link,
             action_taken: assignAction,
-            priority: "Extremely High"
+            severity: "Extremely High"
           });
           a = a + 1;
         }
       }
-      
       this.setState({
         places: potholes
       });
     });
   }
-
-
   handleMouseOver = marker => {
     this.setState({
       selectedMarker: marker
     });
   };
-
-
 
   render() {
     return (
@@ -216,7 +198,6 @@ export default class Severity1Map extends Component {
           containerElement={<div style={{ height: `300px` }} />}
           mapElement={<div style={{ height: `100%` }} />}
         />
-
         <div>
           {this.state.places.map(data => (
             <ListMenu key={data.id} value={data} />
