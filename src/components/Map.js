@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import firebase from "../firebase";
 import { compose } from "recompose";
+import "./Map.css";
 import {
   withScriptjs,
   withGoogleMap,
@@ -9,16 +10,17 @@ import {
   InfoWindow
 } from "react-google-maps";
 
-import "./Map.css";
-
-const MapWithAMarker = compose(withScriptjs, withGoogleMap)(props => {
+const MapWithAMarker = compose(
+  withScriptjs,
+  withGoogleMap
+)(props => {
   return (
     <GoogleMap
-      defaultZoom={18}
-      defaultCenter={{ lat: 20.3546207, lng: 85.8206245 }}>
+      defaultZoom={14}
+      defaultCenter={{ lat: 20.3546207, lng: 85.8206245 }}
+    >
       {props.markers.map(marker => {
         const onClick = props.onClick.bind(this, marker);
-        
         return (
           <Marker
             key={marker.id}
@@ -26,13 +28,14 @@ const MapWithAMarker = compose(withScriptjs, withGoogleMap)(props => {
             position={{
               lat: parseFloat(marker.latitude),
               lng: parseFloat(marker.longitude)
-            }}>
+            }}
+          >
             {props.selectedMarker === marker && (
               <InfoWindow>
                 <div className="infoWindowStyle">
                   <div className="card" style={{ maxWidth: "100%" }}>
                     <img
-                      alt="pothole_image"
+                      alt="Pothole"
                       src={marker.img_link}
                       style={{
                         width: "80%",
@@ -40,13 +43,15 @@ const MapWithAMarker = compose(withScriptjs, withGoogleMap)(props => {
                         alignSelf: "center"
                       }}
                     ></img>
-
                     <div className="card-body" style={{ textAlign: "left" }}>
                       <h6 className="card-title">
-                        Validity : {marker.validity}%
+                        Latitude : {marker.latitude}
                       </h6>
                       <h6 className="card-title">
-                        Priority : {marker.priority}
+                        Longitude : {marker.longitude}
+                      </h6>
+                      <h6 className="card-title">
+                        Severity : {marker.severity}
                       </h6>
                       <h6 className="card-title">
                         Action Taken : {marker.action_taken}
@@ -71,67 +76,53 @@ export default class Map extends Component {
       selectedMarker: false
     };
   }
-
-
   componentDidMount() {
     let rootRef = firebase.database().ref("/results");
-    
     rootRef.on("value", snap => {
       let places = snap.val();
-    
       let potholes = [];
       let latLng = [];
       let assignLatitude = [];
       let assignLongitude = [];
-      let assignPriority = [];
+      let assignSeverity = [];
       let assignAction = [];
-    
       for (let item in places) {
         latLng = places[item].gps_coordinates.split(",");
         assignLatitude = latLng[0];
         assignLongitude = latLng[1];
-    
         if (places[item].severity === 1) {
-          assignPriority = "Low";
+          assignSeverity = "Low";
         } else if (places[item].severity === 2) {
-          assignPriority = "Medium to High";
+          assignSeverity = "Medium to High";
         } else if (places[item].severity === 3) {
-          assignPriority = "Extremely High";
+          assignSeverity = "Extremely High";
         } else {
-          assignPriority = "Low";
+          assignSeverity = "Low";
         }
         if (places[item].action_taken === "true") {
           assignAction = "Yes";
         } else {
           assignAction = "No";
         }
-    
         if (places[item].issue_fixed === "false" && places[item].validity > 0) {
           potholes.push({
             id: item,
             latitude: assignLatitude,
             longitude: assignLongitude,
-            severity: places[item].severity,
-            validity: Math.floor(places[item].validity),
+            severity: assignSeverity,
             img_link: places[item].img_link,
-            action_taken: assignAction,
-            priority: assignPriority
+            action_taken: assignAction
           });
         }
       }
-    
       this.setState({
         places: potholes
       });
     });
   }
-  
-  
-  handleClick = (marker) => {
+  handleClick = marker => {
     this.setState({ selectedMarker: marker });
   };
-
-
   render() {
     return (
       <MapWithAMarker
