@@ -167,7 +167,6 @@ export default class Severity1Map extends Component {
             id: a,
             latitude: parseFloat(assignLatitude),
             longitude: parseFloat(assignLongitude),
-            validity: Math.floor(places[item].validity),
             img_link: places[item].img_link,
             action_taken: assignAction,
             severity: "Low"
