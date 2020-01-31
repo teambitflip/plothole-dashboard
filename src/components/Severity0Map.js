@@ -41,12 +41,13 @@ const ListMenu = props => {
                       width: "150px",
                       height: "150px"
                     }}
+                    alt="Spam"
                   ></img>
                 </Col>
                 <Col>
                   <h6>Latitude : {props.value.latitude}</h6>
                   <h6>Longitude : {props.value.longitude}</h6>
-                  <h6>Priority : {props.value.priority}</h6>
+                  <h6>Severity : {props.value.severity}</h6>
                   <br></br>
                   <Button outline color="danger" onClick={toggleModal}>
                     Image Link
@@ -58,6 +59,7 @@ const ListMenu = props => {
                     </ModalHeader>
                     <ModalBody>
                       <img
+                        alt="Spam"
                         src={props.value.img_link}
                         style={{
                           width: "100%",
@@ -70,11 +72,12 @@ const ListMenu = props => {
                 </Col>
                 <Col>
                   <iframe
+                    title={props.value.id}
                     width="100%"
-                    frameborder="0"
+                    frameBorder="0"
                     style={{ border: "0" }}
                     src={`https://www.google.com/maps/embed/v1/place?q=${props.value.latitude},${props.value.longitude}&key=${API_KEY}&zoom=18`}
-                    allowfullscreen
+                    allowFullScreen
                   ></iframe>
                 </Col>
               </Row>
@@ -115,10 +118,8 @@ export default class Severity1Map extends Component {
             id: a,
             latitude: parseFloat(assignLatitude),
             longitude: parseFloat(assignLongitude),
-            severity: places[item].severity,
-            validity: Math.floor(places[item].validity),
             img_link: places[item].img_link,
-            priority: "None"
+            severity: "None"
           });
           a = a + 1;
         }
