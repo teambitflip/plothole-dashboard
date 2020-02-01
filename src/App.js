@@ -3,7 +3,7 @@ import logo from "./logo.png";
 import "./App.css";
 import Map from "./components/Map";
 import { Collapse, Navbar, NavbarToggler, Nav, NavItem } from "reactstrap";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { HashRouter as Router, Route, Link } from "react-router-dom";
 import Severity0Map from "./components/Severity0Map";
 import Severity1Map from "./components/Severity1Map";
 import Severity2Map from "./components/Severity2Map";

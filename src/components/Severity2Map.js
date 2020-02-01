@@ -151,6 +151,7 @@ export default class Severity1Map extends Component {
       let assignAction = [];
       let a = 1;
       for (let item in places) {
+        console.log(places)
         latLng = places[item].gps_coordinates.split(",");
         assignLatitude = latLng[0];
         assignLongitude = latLng[1];
