@@ -86,7 +86,7 @@ const ListMenu = props => {
                     frameBorder="0"
                     style={{ border: "0" }}
                     src={`https://www.google.com/maps/embed/v1/place?q=${props.value.latitude},${props.value.longitude}&key=${API_KEY}&zoom=18`}
-                    allowfullscreen
+                    allowFullScreen
                   ></iframe>
                 </Col>
               </Row>
