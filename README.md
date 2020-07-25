@@ -1,6 +1,9 @@
-# dashboard
+# Plothole - Authority Admin Dashboard
 
 The dashboard to be used by authorities deployed using firebase.
+
+
+## Development Setup and Dependencies
 
 * `npm install` to install all the dependencies
 * `npm start` to start the dev server
