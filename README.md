@@ -17,6 +17,12 @@ Makes a `.on` call to the firebase instance to get the data asynchronously on ch
 
 ## Screenshots
 
-![](screenshots/a.png)
-![](screenshots/b.png)
+![](screenshots/a.png) <br>
+![](screenshots/b.png) <br>
 ![](screenshots/c.png)
+
+
+## LICENSE
+Copyright (c) **Team BitFlip**. All rights reserved. Licensed under the MIT License
+
+[![](https://img.shields.io/github/license/junaidrahim/desiresalesportal?style=for-the-badge)](LICENSE)
